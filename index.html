@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Tailwind CDN (use ONLY one Tailwind script) -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#135BEC",
+            "primary-dark": "#0E45B8",
+            accent: "#9333EA",
+            "background-light": "#F9FAFB",
+            "surface-light": "#FFFFFF",
+            "surface-light-hover": "#F3F4F6",
+            "border-light": "#E5E7EB",
+            "text-primary": "#111827",
+            "text-secondary": "#4B5563",
+            "text-title": "#0F172A",
+          },
+          fontFamily: {
+            display: ["Manrope", "sans-serif"],
+          },
+          boxShadow: {
+            glow: "0 12px 30px rgba(19, 91, 236, 0.25)",
+            subtle: "0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+            card: "0 28px 60px -22px rgba(0,0,0,0.25), 0 18px 35px -28px rgba(0,0,0,0.22)",
+          },
+        },
+      },
+    };
+  </script>
+
+  <title>Scalero</title>
+</head>
+
+<body class="bg-background-light text-text-primary font-display dark:bg-[#0B1220] dark:text-white">
+  <!-- Navbar -->
+  <header class="border-b border-border-light bg-surface-light dark:bg-[#0F172A] dark:border-white/10">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3" aria-label="Primary">
+      <!-- Brand -->
+      <a href="#" class="flex items-center gap-2 text-xl font-bold text-text-title dark:text-white">
+        <!-- Heroicon: Bolt -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+          fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor"
+          class="h-5 w-5 text-primary shrink-0">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M13.5 2.25L3 14.25h7.125L9.75 21.75 21 9.75h-7.125L13.5 2.25z" />
+        </svg>
+        Scalero
+      </a>
+
+      <!-- Desktop Menu -->
+      <ul class="hidden md:flex items-center gap-10" role="list">
+        <li>
+          <a class="text-sm font-semibold text-text-secondary hover:text-text-primary dark:text-white/70 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded"
+            href="#">Products</a>
+        </li>
+        <li>
+          <a class="text-sm font-semibold text-text-secondary hover:text-text-primary dark:text-white/70 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded"
+            href="#">Solutions</a>
+        </li>
+        <li>
+          <a class="text-sm font-semibold text-text-secondary hover:text-text-primary dark:text-white/70 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded"
+            href="#">Resources</a>
+        </li>
+        <li>
+          <a class="text-sm font-semibold text-text-secondary hover:text-text-primary dark:text-white/70 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded"
+            href="#">Pricing</a>
+        </li>
+      </ul>
+
+      <!-- Desktop Actions -->
+      <div class="hidden md:flex items-center gap-6">
+        <!-- Theme button (icon only) -->
+        <button id="themeBtn" type="button"
+          class="p-2 rounded-md border border-border-light hover:bg-surface-light-hover dark:border-white/10 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+          aria-label="Toggle theme">
+          <!-- Icon injected by JS -->
+          <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg"
+            fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor"
+            class="w-5 h-5 text-text-secondary dark:text-white/70" aria-hidden="true">
+          </svg>
+        </button>
+
+        <a href="#"
+          class="text-sm font-semibold text-text-primary hover:text-primary dark:text-white dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded">
+          Log In
+        </a>
+
+        <a href="#"
+          class="px-4 py-2 bg-primary text-white rounded-md text-sm font-semibold hover:bg-primary-dark shadow-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
+          Get Started
+        </a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button id="menuBtn" type="button"
+        class="md:hidden p-2 rounded-md border border-border-light hover:bg-surface-light-hover dark:border-white/10 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+        aria-controls="mobileMenu" aria-expanded="false" aria-label="Open menu">
+        <!-- Heroicons: Bars-3 -->
+        <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+          class="w-6 h-6 text-text-primary dark:text-white" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75Zm0 5.25A.75.75 0 0 1 3.75 11.25h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25A.75.75 0 0 1 3.75 16.5h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 17.25Z"
+            clip-rule="evenodd" />
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-border-light bg-surface-light dark:bg-[#0F172A] dark:border-white/10">
+      <div class="mx-auto max-w-6xl px-6 pb-5 pt-4">
+        <ul class="flex flex-col gap-4" role="list">
+          <li>
+            <a class="block text-sm font-semibold text-text-secondary hover:text-text-primary dark:text-white/70 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded"
+              href="#">Products</a>
+          </li>
+          <li>
+            <a class="block text-sm font-semibold text-text-secondary hover:text-text-primary dark:text-white/70 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded"
+              href="#">Solutions</a>
+          </li>
+          <li>
+            <a class="block text-sm font-semibold text-text-secondary hover:text-text-primary dark:text-white/70 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded"
+              href="#">Resources</a>
+          </li>
+          <li>
+            <a class="block text-sm font-semibold text-text-secondary hover:text-text-primary dark:text-white/70 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded"
+              href="#">Pricing</a>
+          </li>
+        </ul>
+
+        <div class="mt-5 flex flex-col gap-3">
+          <a href="#"
+            class="text-sm font-semibold text-text-primary hover:text-primary dark:text-white dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded">
+            Log In
+          </a>
+          <a href="#"
+            class="px-4 py-2 bg-primary text-white rounded-md text-sm font-semibold hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 text-center">
+            Get Started
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="relative overflow-hidden
+      bg-[radial-gradient(circle_at_center,_#EEF2FF_0%,_#FFFFFF_42%,_#F3F4F6_100%)]
+      dark:bg-[radial-gradient(circle_at_center,_rgba(19,91,236,0.18)_0%,_#0B1220_55%,_#060B14_100%)]">
+
+      <!-- Glows -->
+      <div class="absolute -top-32 -left-32 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] opacity-60 pointer-events-none"></div>
+      <div class="absolute -top-24 -right-32 w-[520px] h-[520px] bg-primary-dark/20 rounded-full blur-[115px] opacity-60 pointer-events-none"></div>
+
+      <!-- Content -->
+      <div class="relative z-10 mx-auto max-w-5xl px-6 pt-28 pb-20 text-center">
+        <!-- Badge -->
+        <div class="flex justify-center">
+          <div class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-medium text-primary backdrop-blur-sm dark:bg-white/5 dark:border-white/10">
+            <span class="w-2 h-2 bg-primary rounded-full"></span>
+            v2.0 is now live!
+          </div>
+        </div>
+
+        <!-- Headings -->
+        <h1 class="mt-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-text-primary dark:text-white leading-[1.05] tracking-tight">
+          Automate Your Workflow
+        </h1>
+
+        <h2 class="mt-5 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+          with Precision
+        </h2>
+
+        <!-- Paragraph -->
+        <p class="mt-7 text-[18px] text-text-secondary dark:text-white/70 max-w-2xl mx-auto">
+          The all-in-one platform designed to scale your business operations
+          without the complexity. Join thousands of forward-thinking companies.
+        </p>
+
+        <!-- CTAs -->
+        <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+          <a href="#"
+            class="px-6 py-3 bg-primary text-white rounded-md text-sm font-semibold hover:bg-primary-dark transition-colors flex items-center justify-center gap-2 shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
+            Start Free Trial
+            <!-- Heroicons: Arrow Right -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M13.28 4.22a.75.75 0 0 1 1.06 0l6.44 6.44a.75.75 0 0 1 0 1.06l-6.44 6.44a.75.75 0 1 1-1.06-1.06l5.16-5.16H3.75a.75.75 0 0 1 0-1.5h14.63l-5.16-5.16a.75.75 0 0 1 0-1.06Z"
+                clip-rule="evenodd" />
+            </svg>
+          </a>
+
+          <a href="#"
+            class="px-6 py-3 bg-surface-light border border-border-light text-text-primary rounded-md text-sm font-semibold hover:bg-surface-light-hover transition-colors flex items-center justify-center gap-2 shadow-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40
+            dark:bg-white/5 dark:text-white dark:border-white/10 dark:hover:bg-white/10">
+            View Demo
+            <!-- Heroicons: Play -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M4.5 12a7.5 7.5 0 1 1 15 0 7.5 7.5 0 0 1-15 0Zm6.29-3.03a.75.75 0 0 1 .77.03l4.5 2.89a.75.75 0 0 1 0 1.26l-4.5 2.89A.75.75 0 0 1 10.5 15.25v-6.5a.75.75 0 0 1 .29-.78Z"
+                clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Hero Image -->
+        <div class="mt-16">
+          <img src="assets/hero-demo-chart.png" alt="SaaS Dashboard"
+            class="mx-auto w-full max-w-4xl rounded-xl shadow-card" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Partners -->
+    <section class="bg-surface-light border-t border-border-light dark:bg-[#0F172A] dark:border-white/10">
+      <div class="mx-auto max-w-6xl px-6 py-6 mt-5">
+        <p class="text-center text-sm font-semibold text-text-secondary dark:text-white/70">
+          Trusted by forward-thinking teams worldwide
+        </p>
+
+        <ul class="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-10 gap-y-6 justify-items-center"
+          role="list" aria-label="Trusted by">
+          <li class="flex items-center gap-3 text-sm font-semibold text-text-secondary/80 dark:text-white/60 whitespace-nowrap">
+            <img src="./assets/Logo-1.png" alt="Acme Corp" class="h-7 w-7 object-contain opacity-80" />
+            <span class="capitalize">acme corp</span>
+          </li>
+          <li class="flex items-center gap-3 text-sm font-semibold text-text-secondary/80 dark:text-white/60 whitespace-nowrap">
+            <img src="./assets/Logo-2.png" alt="Gem Start" class="h-7 w-7 object-contain opacity-80" />
+            <span class="capitalize">gem start</span>
+          </li>
+          <li class="flex items-center gap-3 text-sm font-semibold text-text-secondary/80 dark:text-white/60 whitespace-nowrap">
+            <img src="./assets/Logo-3.png" alt="Rocket Lab" class="h-7 w-7 object-contain opacity-80" />
+            <span class="capitalize">rocket lab</span>
+          </li>
+          <li class="flex items-center gap-3 text-sm font-semibold text-text-secondary/80 dark:text-white/60 whitespace-nowrap">
+            <img src="./assets/Logo-4.png" alt="Nexus" class="h-7 w-7 object-contain opacity-80" />
+            <span class="capitalize">nexus</span>
+          </li>
+          <li class="flex items-center gap-3 text-sm font-semibold text-text-secondary/80 dark:text-white/60 whitespace-nowrap">
+            <img src="./assets/Logo-5.png" alt="Infinite" class="h-7 w-7 object-contain opacity-80" />
+            <span class="capitalize">infinite</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Feature Cards -->
+    <section class="relative overflow-hidden py-24 bg-surface-light dark:bg-[#0B1220]">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_#EEF2FF_0%,_#FFFFFF_45%,_#F3F4F6_100%)]
+        dark:bg-[radial-gradient(circle_at_center,_rgba(19,91,236,0.18)_0%,_#0B1220_60%,_#060B14_100%)]"></div>
+
+      <div class="pointer-events-none absolute -left-40 top-10 h-[520px] w-[520px] rounded-full bg-primary/15 blur-[130px]"></div>
+      <div class="pointer-events-none absolute -right-40 top-16 h-[520px] w-[520px] rounded-full bg-primary-dark/15 blur-[130px]"></div>
+
+      <div class="relative mx-auto max-w-6xl px-6">
+        <div class="text-center">
+          <p class="uppercase tracking-[0.18em] text-xs font-semibold text-primary">
+            Powerful Features
+          </p>
+
+          <h2 class="mt-4 text-4xl sm:text-5xl font-extrabold text-text-title dark:text-white tracking-tight">
+            Everything you need to scale
+          </h2>
+
+          <p class="mt-5 max-w-2xl mx-auto text-[16px] sm:text-[18px] leading-7 text-text-secondary dark:text-white/70">
+            Our platform provides a comprehensive suite of tools designed to boost productivity and
+            streamline communication across your entire organization.
+          </p>
+        </div>
+
+        <div class="mt-14 rounded-3xl border border-border-light bg-white/60 backdrop-blur-sm p-8 sm:p-10
+          dark:border-white/10 dark:bg-white/5">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="rounded-2xl border border-border-light bg-white p-8 shadow-subtle transition hover:-translate-y-1 hover:shadow-card
+              dark:border-white/10 dark:bg-[#0F172A]">
+              <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+                <img src="./assets/Card-Logo-1.png" alt="Analytics" class="h-6 w-6" />
+              </div>
+              <h3 class="mt-6 text-base font-bold text-text-title dark:text-white text-center">Real-time Analytics</h3>
+              <p class="mt-3 text-sm leading-6 text-text-secondary dark:text-white/70 text-center">
+                Gain insights instantly with our powerful dashboard. Track KPIs, user engagement,
+                and revenue streams in real-time.
+              </p>
+            </div>
+
+            <div class="rounded-2xl border border-border-light bg-white p-8 shadow-subtle transition hover:-translate-y-1 hover:shadow-card
+              dark:border-white/10 dark:bg-[#0F172A]">
+              <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+                <img src="./assets/Card-Logo-2.png" alt="Collaboration" class="h-6 w-6" />
+              </div>
+              <h3 class="mt-6 text-base font-bold text-text-title dark:text-white text-center">Team Collaboration</h3>
+              <p class="mt-3 text-sm leading-6 text-text-secondary dark:text-white/70 text-center">
+                Work together seamlessly with built-in messaging, file sharing, and task
+                management designed for remote teams.
+              </p>
+            </div>
+
+            <div class="rounded-2xl border border-border-light bg-white p-8 shadow-subtle transition hover:-translate-y-1 hover:shadow-card
+              dark:border-white/10 dark:bg-[#0F172A]">
+              <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+                <img src="./assets/Card-Logo-3.png" alt="Storage" class="h-6 w-6" />
+              </div>
+              <h3 class="mt-6 text-base font-bold text-text-title dark:text-white text-center">Secure Cloud Storage</h3>
+              <p class="mt-3 text-sm leading-6 text-text-secondary dark:text-white/70 text-center">
+                Keep your data safe with enterprise-grade encryption, regular backups, and strict
+                access controls compliant with SOC2.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Designed for modern teams -->
+    <section class="bg-surface-light border-t border-border-light dark:bg-[#0F172A] dark:border-white/10">
+      <div class="mx-auto max-w-6xl px-6 py-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+          <div>
+            <h2 class="text-3xl sm:text-4xl font-bold text-text-title dark:text-white">
+              Designed for modern teams
+            </h2>
+
+            <div class="mt-8 space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-500/15">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-text-title dark:text-white">Seamless Integration</h4>
+                  <p class="mt-1 text-sm text-text-secondary dark:text-white/70">
+                    Connect with your favorite tools like Slack, Jira, and GitHub in seconds.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-500/15">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-text-title dark:text-white">Automated Reports</h4>
+                  <p class="mt-1 text-sm text-text-secondary dark:text-white/70">
+                    Schedule daily or weekly reports delivered straight to your inbox.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-500/15">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-text-title dark:text-white">24/7 Priority Support</h4>
+                  <p class="mt-1 text-sm text-text-secondary dark:text-white/70">
+                    Our dedicated support team is always ready to help you succeed.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <a href="#" class="mt-8 inline-block text-sm font-semibold text-primary hover:underline">
+              Learn more about integrations →
+            </a>
+          </div>
+
+          <div class="grid grid-cols-2 gap-6">
+            <img src="./assets/Background+Border+Shadow.png" alt="Team collaboration" class="rounded-2xl shadow-card w-full" />
+            <img src="./assets/Background+Border+Shadow-1.png" alt="App feature" class="rounded-2xl shadow-card w-full" />
+            <img src="./assets/Background+Border+Shadow-2.png" alt="Fast performance" class="rounded-2xl shadow-card w-full" />
+            <img src="./assets/Background+Border+Shadow-3.png" alt="Analytics dashboard" class="rounded-2xl shadow-card w-full" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-[linear-gradient(90deg,_rgba(19,91,236,0.9)_0%,_#0F172A_100%)] py-20">
+      <div class="mx-auto max-w-4xl px-6 text-center text-white">
+        <h2 class="text-3xl sm:text-4xl font-extrabold">
+          Ready to transform your business?
+        </h2>
+
+        <p class="mt-4 text-[17px] text-white/80 max-w-2xl mx-auto leading-7">
+          Join thousands of teams who have already switched to SaaSify.
+          Start your 14-day free trial today.
+        </p>
+
+        <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+          <a href="#" class="px-6 py-3 bg-white text-[#0F172A] font-semibold rounded-md hover:bg-white/90 transition">
+            Get Started Now
+          </a>
+          <a href="#" class="px-6 py-3 border border-white/40 text-white font-semibold rounded-md hover:bg-white/10 transition">
+            Contact Sales
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="bg-surface-light border-t border-border-light dark:bg-[#0F172A] dark:border-white/10">
+      <div class="mx-auto max-w-6xl px-6 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+          <div>
+            <div class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor"
+                class="h-5 w-5 text-primary">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M13.5 2.25L3 14.25h7.125L9.75 21.75 21 9.75h-7.125L13.5 2.25z" />
+              </svg>
+              <span class="font-bold text-text-title dark:text-white">Scalero</span>
+            </div>
+
+            <p class="mt-4 text-sm text-text-secondary dark:text-white/70 leading-6">
+              Making complex workflows simple for modern teams.
+              Built with love and precision.
+            </p>
+
+            <div class="mt-4 flex items-center gap-4 text-text-secondary dark:text-white/70">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor"
+                class="h-5 w-5 hover:text-text-title dark:hover:text-white cursor-pointer">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M8.625 9.75h6.75M8.625 12.75h4.5m-7.5 6 1.5-4.5A9 9 0 1112 21a8.963 8.963 0 01-4.5-1.125L5.625 18.75z" />
+              </svg>
+
+              <svg xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor"
+                class="h-5 w-5 hover:text-text-title dark:hover:text-white cursor-pointer">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 3c4.97 0 9 4.03 9 9s-4.03 9-9 9-9-4.03-9-9 4.03-9 9-9zm0 0c2.25 2.25 3.375 5.625 3.375 9S14.25 18.75 12 21m0-18C9.75 5.25 8.625 8.625 8.625 12S9.75 18.75 12 21" />
+              </svg>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-sm font-semibold text-text-title dark:text-white">PRODUCT</h4>
+            <ul class="mt-4 space-y-3 text-sm text-text-secondary dark:text-white/70">
+              <li><a href="#" class="hover:text-text-title dark:hover:text-white">Features</a></li>
+              <li><a href="#" class="hover:text-text-title dark:hover:text-white">Integrations</a></li>
+              <li><a href="#" class="hover:text-text-title dark:hover:text-white">Pricing</a></li>
+              <li><a href="#" class="hover:text-text-title dark:hover:text-white">Changelog</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-sm font-semibold text-text-title dark:text-white">RESOURCES</h4>
+            <ul class="mt-4 space-y-3 text-sm text-text-secondary dark:text-white/70">
+              <li><a href="#" class="hover:text-text-title dark:hover:text-white">Documentation</a></li>
+              <li><a href="#" class="hover:text-text-title dark:hover:text-white">API Reference</a></li>
+              <li><a href="#" class="hover:text-text-title dark:hover:text-white">Community</a></li>
+              <li><a href="#" class="hover:text-text-title dark:hover:text-white">Blog</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-sm font-semibold text-text-title dark:text-white">COMPANY</h4>
+            <ul class="mt-4 space-y-3 text-sm text-text-secondary dark:text-white/70">
+              <li><a href="#" class="hover:text-text-title dark:hover:text-white">About</a></li>
+              <li><a href="#" class="hover:text-text-title dark:hover:text-white">Careers</a></li>
+              <li><a href="#" class="hover:text-text-title dark:hover:text-white">Legal</a></li>
+              <li><a href="#" class="hover:text-text-title dark:hover:text-white">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-12 border-t border-border-light dark:border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-text-secondary dark:text-white/70">
+          <p>© 2026 Scalero. All rights reserved. Coded by Akshat Sharma</p>
+          <div class="mt-4 md:mt-0 flex gap-6">
+            <a href="#" class="hover:text-text-title dark:hover:text-white">Privacy Policy</a>
+            <a href="#" class="hover:text-text-title dark:hover:text-white">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ---------------- Mobile Menu Toggle ----------------
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const menuIcon = document.getElementById("menuIcon");
+
+    const barsIcon = `
+      <path fill-rule="evenodd"
+        d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75Zm0 5.25A.75.75 0 0 1 3.75 11.25h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25A.75.75 0 0 1 3.75 16.5h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 17.25Z"
+        clip-rule="evenodd" />`;
+
+    const xIcon = `
+      <path fill-rule="evenodd"
+        d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 1 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+        clip-rule="evenodd" />`;
+
+    function setMenuState(isOpen) {
+      mobileMenu.classList.toggle("hidden", !isOpen);
+      menuBtn.setAttribute("aria-expanded", String(isOpen));
+      menuBtn.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+      menuIcon.innerHTML = isOpen ? xIcon : barsIcon;
+    }
+
+    menuBtn.addEventListener("click", () => {
+      const willOpen = mobileMenu.classList.contains("hidden");
+      setMenuState(willOpen);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !mobileMenu.classList.contains("hidden")) {
+        setMenuState(false);
+        menuBtn.focus();
+      }
+    });
+
+    // ---------------- Dark Mode Toggle ----------------
+    const themeBtn = document.getElementById("themeBtn");
+    const themeIcon = document.getElementById("themeIcon");
+    const root = document.documentElement;
+
+    const moonPath = `
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+    `;
+
+    const sunPath = `
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="M12 3v1.5M12 19.5V21M4.5 12H3m18 0h-1.5M6.34 6.34 5.28 5.28m13.44 13.44-1.06-1.06M17.66 6.34l1.06-1.06M5.28 18.72l1.06-1.06M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z" />
+    `;
+
+    function setTheme(isDark) {
+      root.classList.toggle("dark", isDark);
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      themeIcon.innerHTML = isDark ? sunPath : moonPath;
+    }
+
+    (function initTheme() {
+      const saved = localStorage.getItem("theme");
+      if (saved) {
+        setTheme(saved === "dark");
+      } else {
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        setTheme(prefersDark);
+      }
+    })();
+
+    themeBtn.addEventListener("click", () => {
+      setTheme(!root.classList.contains("dark"));
+    });
+  </script>
+</body>
+</html>
